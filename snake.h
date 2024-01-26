@@ -40,9 +40,24 @@ void make_snake() {
 void snake_plus() {
     Snake *new = malloc(sizeof(Snake));
 
-    new->x = tail->x;
-    new->y = tail->y-1;
-    new->dir = tail->dir;
+    switch(tail->dir) {
+        case SNAKE_UP:
+            new->x = tail->x;
+            new->y = tail->y+1;
+            break;
+        case SNAKE_DOWN:
+            new->x = tail->x;
+            new->y = tail->y-1;
+            break;
+        case SNAKE_LEFT:
+            new->x = tail->x+1;
+            new->y = tail->y;
+            break;
+        case SNAKE_RIGHT:
+            new->x = tail->x-1;
+            new->y = tail->y;
+            break;
+    }
 
     new->next = NULL;
     tail->next = new;
@@ -51,6 +66,28 @@ void snake_plus() {
 }
 
 void move_snake() {
+    // int prev_x = head->x;
+    // int prev_y = head->y; 
+    switch(head->dir) {
+        case SNAKE_UP:
+            head->y--;
+            break;
+        case SNAKE_DOWN:
+            head->y++;
+            break;
+        case SNAKE_LEFT:
+            head->x--;
+            break;
+        case SNAKE_RIGHT:
+            head->x++;
+            break;
+    }
+    // Snake *body = head;
+    // while (body->next != NULL) {
+    //     body->next->x = body->x;
+    //     body->next->y = body->y;
 
+    //     body = body->next;
+    // }
     return;
 }

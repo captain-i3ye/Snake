@@ -45,6 +45,5 @@ void render_snake(SDL_Renderer *renderer, int x, int y) {
         body = body->next;
     }
 
-
     return;
 }

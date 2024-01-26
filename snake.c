@@ -1,13 +1,21 @@
 // #include "snake.h"
 #include "render.h"
-
+#include <time.h>
 int main() {
-    SDL_Window* window = NULL; // Window
+
+    make_snake();
+    snake_plus();
+    snake_plus();
+    snake_plus();
+
+
+
+    SDL_Window *window; // Window
     // SDL_Surface* screenSurface = NULL; // surface (for images and stuff)
-    SDL_Renderer* renderer = NULL;
+    SDL_Renderer *renderer ;
 
     // Initialize SDL with video subsystem
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL_INIT_VIDEO < 0) {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
     }
 
@@ -34,27 +42,21 @@ int main() {
         fprintf(stderr, "SDL Error: %s\n", SDL_GetError());
     }
 
+    
+
+
     int grid_x = (WINDOW_WIDTH/2) - (GRID_DIM/2);
     int grid_y = (WINDOW_HEIGHT/2) - (GRID_DIM/2);
+    // bool moved = false;
 
+    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0);
+    
     SDL_RenderClear(renderer);
-    // start render
     render_grid(renderer, grid_x, grid_y);
-    make_snake();
-    snake_plus();
-    snake_plus();
     render_snake(renderer, grid_x, grid_y);
-
-
-
-
-    // end render
-
-
-    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255);
+    move_snake();
+    // SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
-
-
 
     bool quit = false;
     SDL_Event event;
@@ -71,14 +73,25 @@ int main() {
                         case SDLK_ESCAPE:
                             quit = true;
                             break;
+                        case SDLK_UP:
+                            if (head->dir != SNAKE_DOWN) {
+                                head->dir = SNAKE_UP;
+                            }
                     }
                     break;
             }
         }
     }
 
-    
+    SDL_RenderClear(renderer);
 
+
+    // render_grid(renderer, grid_x, grid_y);
+    // render_snake(renderer, grid_x, grid_y);
+    move_snake();
+    
+    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255);
+    SDL_RenderPresent(renderer);
     // SDL_Delay(2000);
 
 
