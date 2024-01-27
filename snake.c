@@ -100,6 +100,7 @@ int main() {
         render_grid(renderer, grid_x, grid_y);
         render_snake(renderer, grid_x, grid_y);
         move_snake();
+        detect_crash();
         
         SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255);
         SDL_RenderPresent(renderer);
