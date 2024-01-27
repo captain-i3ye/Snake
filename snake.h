@@ -9,6 +9,9 @@
 #define GRID_DIM 800
 
 
+// Checks if the game is paused or not
+bool paused = false;
+
 // directions (0-3)
 enum {
     SNAKE_UP,
@@ -190,15 +193,15 @@ void reset_snake() {
 // Detects if snake crashes into boundary or itself
 
 void detect_crash() {
-    if (head->x < 0 || head->x == GRID_SIZE || head->y < 0 || head->y == GRID_SIZE) {
-        reset_snake();
+    if (head->x <= 0 || head->x == GRID_SIZE || head->y <= 0 || head->y == GRID_SIZE) {
+        paused = true;
     }
 
     // detect self crash
     Snake *body = head->next;
     while (body != NULL) {
         if (body->x == head->x && body->y == head->y) {
-            reset_snake();
+            paused = true;
 
             return;
         }

@@ -15,8 +15,8 @@ int main() {
     SDL_Renderer *renderer ;
 
     // Initialize SDL with video subsystem
-    if (SDL_INIT_VIDEO < 0) {
-        printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        fprintf(stderr, "SDL could not initialize! SDL Error: %s\n", SDL_GetError());
     }
 
     window = SDL_CreateWindow(
@@ -29,7 +29,7 @@ int main() {
     );
 
     if (!window) {
-        fprintf(stderr, "SDL Error: %s\n", SDL_GetError());
+        fprintf(stderr, "SDL could not create Window: %s\n", SDL_GetError());
     }
 
     renderer = SDL_CreateRenderer(
@@ -39,7 +39,7 @@ int main() {
     );
 
     if (!renderer) {
-        fprintf(stderr, "SDL Error: %s\n", SDL_GetError());
+        fprintf(stderr, "SDL could not create Renderer: %s\n", SDL_GetError());
     }
 
     
@@ -89,7 +89,10 @@ int main() {
                                 head->dir = SNAKE_RIGHT;
                             }
                             break;
-                        
+                        case SDLK_SPACE:
+                            paused = false;
+                            reset_snake();
+                            break;
                     }
                     break;
             }
@@ -99,8 +102,11 @@ int main() {
 
         render_grid(renderer, grid_x, grid_y);
         render_snake(renderer, grid_x, grid_y);
-        move_snake();
-        detect_crash();
+        if (paused == false) {
+            move_snake();
+            detect_crash();
+        }
+        
         
         SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255);
         SDL_RenderPresent(renderer);
