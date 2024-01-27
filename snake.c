@@ -52,9 +52,8 @@ int main() {
     SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0);
     
     SDL_RenderClear(renderer);
-    render_grid(renderer, grid_x, grid_y);
-    render_snake(renderer, grid_x, grid_y);
-    move_snake();
+    // render_grid(renderer, grid_x, grid_y);
+    // render_snake(renderer, grid_x, grid_y);
     // SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
 
@@ -76,22 +75,25 @@ int main() {
                         case SDLK_UP:
                             if (head->dir != SNAKE_DOWN) {
                                 head->dir = SNAKE_UP;
+                                // move_snake();
                             }
                     }
                     break;
             }
         }
+        SDL_RenderClear(renderer);
+
+
+        render_grid(renderer, grid_x, grid_y);
+        render_snake(renderer, grid_x, grid_y);
+        move_snake();
+        
+        SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255);
+        SDL_RenderPresent(renderer);
+        SDL_Delay(100);
     }
 
-    SDL_RenderClear(renderer);
-
-
-    // render_grid(renderer, grid_x, grid_y);
-    // render_snake(renderer, grid_x, grid_y);
-    move_snake();
     
-    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255);
-    SDL_RenderPresent(renderer);
     // SDL_Delay(2000);
 
 
