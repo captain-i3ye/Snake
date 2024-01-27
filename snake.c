@@ -52,9 +52,6 @@ int main() {
     SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0);
     
     SDL_RenderClear(renderer);
-    // render_grid(renderer, grid_x, grid_y);
-    // render_snake(renderer, grid_x, grid_y);
-    // SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
 
     bool quit = false;
@@ -75,8 +72,24 @@ int main() {
                         case SDLK_UP:
                             if (head->dir != SNAKE_DOWN) {
                                 head->dir = SNAKE_UP;
-                                // move_snake();
                             }
+                            break;
+                        case SDLK_DOWN:
+                            if (head->dir != SNAKE_UP) {
+                                head->dir = SNAKE_DOWN;
+                            }
+                            break;
+                        case SDLK_LEFT:
+                            if (head->dir != SNAKE_RIGHT) {
+                                head->dir = SNAKE_LEFT;
+                            }
+                            break;
+                        case SDLK_RIGHT:
+                            if (head->dir != SNAKE_LEFT) {
+                                head->dir = SNAKE_RIGHT;
+                            }
+                            break;
+                        
                     }
                     break;
             }
@@ -90,7 +103,7 @@ int main() {
         
         SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255);
         SDL_RenderPresent(renderer);
-        SDL_Delay(100);
+        SDL_Delay(200);
     }
 
     

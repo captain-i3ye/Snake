@@ -28,6 +28,7 @@ void make_snake() {
     Snake *new = malloc(sizeof(Snake));
     new->x = rand() % (GRID_SIZE/2) + (GRID_SIZE/4);
     new->y = rand() % (GRID_SIZE/2) + (GRID_SIZE/4);
+    // new->dir = rand()%4; // any of the directions (0-3) enum
     new->dir = SNAKE_UP;
     new->next = NULL;
 
@@ -65,9 +66,12 @@ void snake_plus() {
     return;
 }
 
-void move_snake() {
-    // int prev_x = head->x;
-    // int prev_y = head->y; 
+
+// I don't know why this does not work.
+void move_snake_nw() {
+    Snake *prev = head;
+    Snake *curr = head->next; 
+    Snake *temp = malloc(sizeof(Snake));
     switch(head->dir) {
         case SNAKE_UP:
             head->y--;
@@ -82,12 +86,68 @@ void move_snake() {
             head->x++;
             break;
     }
-    // Snake *body = head;
-    // while (body->next != NULL) {
-    //     body->next->x = body->x;
-    //     body->next->y = body->y;
+    
+    while (curr != NULL) {
+        temp->x = curr->x;
+        temp->y = curr->y;
+        temp->dir = curr->dir;
 
-    //     body = body->next;
-    // }
+        curr->x = prev->x;
+        curr->y = prev->y;
+        curr->dir = prev->dir;
+
+        prev = temp;
+
+        curr = curr->next;
+    }
+    free(temp);
+    return;
+}
+
+void move_snake()
+{
+    int prev_x = head->x;
+    int prev_y = head->y;
+    int prev_dir = head->dir;
+
+    switch(head->dir) {
+        case SNAKE_UP:
+            head->y--;
+            break;
+        case SNAKE_DOWN:
+            head->y++;
+            break;
+        case SNAKE_LEFT:
+            head->x--;
+            break;
+        case SNAKE_RIGHT:
+            head->x++;
+            break;
+    }
+
+    Snake *curr = head;
+
+    if(curr->next != NULL) {
+        curr = curr->next;
+    }
+
+    while(curr != NULL) {
+        
+        int temp_x = curr->x;
+        int temp_y = curr->y;
+        int temp_dir = curr->dir;
+
+        curr->x = prev_x;
+        curr->y = prev_y;
+        curr->dir = prev_dir;
+
+        curr = curr->next;
+
+        prev_x = temp_x;
+        prev_y = temp_y;
+        prev_dir= temp_dir;
+
+    }
+
     return;
 }
