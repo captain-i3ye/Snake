@@ -3,7 +3,7 @@
 - A simple snake game with GUI components.
 
 ### Installation (for dev)
-- Install (SDL) [https://wiki.libsdl.org/SDL2/Installation]
+- Install [SDL] (https://wiki.libsdl.org/SDL2/Installation)
 - If on debian based distro: ```sudo apt install libsdl2-dev```
 
 ### To run
@@ -15,6 +15,6 @@
 - Link the libraries
 - Take a look at Makefile (messy and unorganized)
 
-- Inspired from (@DatacoreLinux) [https://github.com/DatacoreLinux/]
+- Inspired from [@DatacoreLinux] (https://github.com/DatacoreLinux/)
 
 Please add anything if you'd like.
