@@ -15,6 +15,6 @@
 - Link the libraries
 - Take a look at Makefile (messy and unorganized)
 
-- Inspired from [@DatacoreLinux](https://github.com/DatacoreLinux/)
+Inspired from [@DatacoreLinux](https://github.com/DatacoreLinux/)
 
 Please add anything if you'd like.
