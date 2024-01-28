@@ -9,9 +9,21 @@
 #define GRID_DIM 800
 
 
+// Score tracker
+unsigned int score = 0;
+
 // Checks if the game is paused or not
 bool paused = false;
 
+// FOOD
+typedef struct food {
+    int x;
+    int y;
+} Food;
+
+Food fud;
+
+// SNAKE
 // directions (0-3)
 enum {
     SNAKE_UP,
@@ -76,7 +88,6 @@ void snake_plus() {
     tail = new;
     return;
 }
-
 
 // Moves snake and its body (probably)
 // I don't know why this does not work.
@@ -193,7 +204,7 @@ void reset_snake() {
 // Detects if snake crashes into boundary or itself
 
 void detect_crash() {
-    if (head->x <= 0 || head->x == GRID_SIZE || head->y <= 0 || head->y == GRID_SIZE) {
+    if (head->x < 0 || head->x == GRID_SIZE || head->y < 0 || head->y == GRID_SIZE) {
         paused = true;
     }
 
@@ -208,5 +219,43 @@ void detect_crash() {
         body = body->next;
     }
 
+    score = 0; // reset score
+
     return;
+}
+
+
+
+// FOOD
+
+// Generate Food
+// we check if the the generated food is at snake's body position, yes -> generate again, no -> go on.
+void gen_food() {
+    bool in_snake_body = false;
+
+    do {
+        fud.x = rand() % GRID_SIZE;
+        fud.y = rand() % GRID_SIZE;
+
+        Snake *body = head;
+        while (body != NULL) {
+            if (body->x == fud.x && body->y == fud.y) {
+                in_snake_body = true;
+            }
+
+            body = body->next;
+        }
+    } while (in_snake_body);
+
+    return;
+}
+
+
+// Snake detects food
+void detect_food() {
+    if (head->x == fud.x && head->y == fud.y) {
+        gen_food();
+        snake_plus();
+        score++;
+    }
 }

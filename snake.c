@@ -1,13 +1,15 @@
 // #include "snake.h"
 #include "render.h"
 #include <time.h>
+
+
 int main() {
 
     make_snake();
     snake_plus();
     snake_plus();
     snake_plus();
-
+    gen_food();
 
 
     SDL_Window *window; // Window
@@ -92,6 +94,8 @@ int main() {
                         case SDLK_SPACE:
                             paused = false;
                             reset_snake();
+                            gen_food();
+
                             break;
                     }
                     break;
@@ -99,9 +103,14 @@ int main() {
         }
         SDL_RenderClear(renderer);
 
+        detect_food();
 
         render_grid(renderer, grid_x, grid_y);
+        render_snake_head(renderer, grid_x, grid_y);
         render_snake(renderer, grid_x, grid_y);
+        render_food(renderer, grid_x, grid_y);
+
+
         if (paused == false) {
             move_snake();
             detect_crash();
@@ -110,7 +119,7 @@ int main() {
         
         SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255);
         SDL_RenderPresent(renderer);
-        SDL_Delay(200);
+        SDL_Delay(180);
     }
 
     
