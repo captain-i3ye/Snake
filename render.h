@@ -7,7 +7,7 @@
 #define WINDOW_Y 50
 
 #define GRID_SIZE 20
-#define GRID_DIM 800
+#define GRID_DIM 900
 
 
 // Render the whole boxed grid
@@ -30,7 +30,19 @@ void render_grid(SDL_Renderer *renderer, int x, int y) {
 }
 
 // Render the border of grid only
-void render_grid_border() {
+void render_grid_border(SDL_Renderer *renderer, int x, int y) {
+    SDL_SetRenderDrawColor(renderer, 0x55, 0x55, 0x55, 255);
+
+    int box_size = GRID_DIM;
+
+    SDL_Rect box;
+
+    box.w = box_size;
+    box.h = box_size;
+    box.x = x;
+    box.y = y;
+
+    SDL_RenderDrawRect(renderer, &box);
 
     return;
 }

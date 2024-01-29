@@ -5,6 +5,8 @@
 
 int main() {
 
+    int speed = 180;
+
     make_snake();
     snake_plus();
     snake_plus();
@@ -105,7 +107,7 @@ int main() {
 
         detect_food();
 
-        render_grid(renderer, grid_x, grid_y);
+        render_grid_border(renderer, grid_x, grid_y);
         render_snake_head(renderer, grid_x, grid_y);
         render_snake(renderer, grid_x, grid_y);
         render_food(renderer, grid_x, grid_y);
@@ -117,9 +119,11 @@ int main() {
         }
         
         
+        speed -= score%3;
+
         SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255);
         SDL_RenderPresent(renderer);
-        SDL_Delay(180);
+        SDL_Delay(speed);
     }
 
     

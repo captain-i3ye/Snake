@@ -6,7 +6,7 @@
 
 // for grid
 #define GRID_SIZE 20
-#define GRID_DIM 800
+#define GRID_DIM 900
 
 
 // Score tracker
